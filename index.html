@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Polaris by Zink Solutions — Navigating Markets, Monthly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ═══════════════════ NAV ═══════════════════ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <div class="nav-brand" onclick="showSection('nav-brief')">
+      <div class="zink-logo-placeholder nav-logo-ctx"></div>
+      <div class="nav-brand-sep"></div>
+      <div>
+        <div class="brand-polaris">POLARIS</div>
+        <div class="brand-polaris-sub">Navigating Markets</div>
+      </div>
+    </div>
+
+    <div class="nav-links" id="navLinks">
+      <span class="nav-issue-label">In this issue</span>
+      <a class="nav-a active" href="#" data-section="nav-brief" onclick="showSection('nav-brief');return false;">Navigation Brief</a>
+      <a class="nav-a" href="#" data-section="macro-winds" onclick="showSection('macro-winds');return false;">Macro Winds</a>
+      <a class="nav-a" href="#" data-section="market-snapshot" onclick="showSection('market-snapshot');return false;">Market Snapshot</a>
+      <a class="nav-a" href="#" data-section="regional-routes" onclick="showSection('regional-routes');return false;">Regional Routes</a>
+      <div class="nav-sep"></div>
+      <a class="nav-a" href="#" data-section="about" onclick="showSection('about');return false;">About Polaris</a>
+    </div>
+
+    <div class="nav-date" id="navDate"></div>
+
+    <button class="hamburger" id="hamburger" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════════════════ HOME — NEWSPAPER (retired) ═══════════════════ -->
+<section id="section-home" class="page hidden">
+
+  <!-- Hero -->
+  <div class="home-hero">
+    <div class="home-hero-inner">
+      <div class="hero-zink-logo zink-logo-placeholder light-logo-ctx"></div>
+      <div class="hero-rule-top"></div>
+      <h1 class="hero-polaris">POLARIS</h1>
+      <p class="hero-sub">Navigating Markets, Monthly</p>
+      <div class="hero-rule"></div>
+      <p class="hero-date" id="heroDayDate"></p>
+    </div>
+  </div>
+
+  <!-- News area -->
+  <div class="newspaper-wrap">
+
+    <!-- Source tabs -->
+    <div class="source-bar">
+      <button class="src-tab active" data-src="all" onclick="filterNews('all',this)">Todas las fuentes</button>
+      <button class="src-tab" data-src="ft" onclick="filterNews('ft',this)">Financial Times</button>
+      <button class="src-tab" data-src="nyt" onclick="filterNews('nyt',this)">New York Times</button>
+      <button class="src-tab" data-src="expansion" onclick="filterNews('expansion',this)">Expansión</button>
+      <button class="src-tab" data-src="confidencial" onclick="filterNews('confidencial',this)">El Confidencial</button>
+      <button class="src-tab" data-src="brew" onclick="filterNews('brew',this)">Morning Brew</button>
+    </div>
+
+    <!-- Loading state -->
+    <div id="newsLoading" class="news-loading">
+      <div class="spinner"></div>
+      <p>Cargando noticias…</p>
+    </div>
+
+    <!-- Error state -->
+    <div id="newsError" class="news-error hidden">
+      <p>⚠️ No se pudieron cargar algunas fuentes. Mostrando lo disponible.</p>
+    </div>
+
+    <!-- Featured article -->
+    <div id="newsFeatured" class="news-featured hidden"></div>
+
+    <!-- Grid -->
+    <div id="newsGrid" class="news-grid hidden"></div>
+
+    <!-- Refresh bar -->
+    <div class="news-footer hidden" id="newsFooter">
+      <button class="refresh-btn" onclick="loadAllNews()">↻ Actualizar</button>
+      <span class="last-updated" id="lastUpdated"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ NAVIGATION BRIEF ═══════════════════ -->
+<section id="section-nav-brief" class="page newsletter-page active">
+  <div class="nl-wrap">
+
+    <!-- NL Header (shared look) -->
+    <div class="nl-header">
+      <div class="nl-logo-wrap zink-logo-placeholder dark-logo-ctx"></div>
+      <h1 class="nl-title">Polaris</h1>
+      <p class="nl-subtitle">Navigating Markets, Monthly</p>
+      <p class="nl-date">April 2026</p>
+      <div class="nl-rule"></div>
+
+      <div class="nl-intro">
+        <p><strong>Polaris</strong>, the North Star, guided sailors long before modern navigation systems existed, helping them find their path, especially by determining latitude. Today, while the world has transformed through technology, artificial intelligence (AI), and unprecedented access to information, the challenge remains the same: knowing where to go. With Polaris, we aim to provide a clear framework to help navigate increasingly complex markets and define the path ahead.</p>
+      </div>
+
+      <blockquote class="nl-quote">
+        As Seneca wrote: <em><strong>"No wind is favorable for the sailor who does not know to which port he is bound."</strong></em>
+      </blockquote>
+    </div>
+
+    <!-- Section title -->
+    <div class="sec-title-row">
+      <div class="sec-line"></div>
+      <h2 class="sec-title">Navigation Brief</h2>
+      <div class="sec-line"></div>
+    </div>
+
+    <!-- Hero image -->
+    <div class="nl-img-wrap">
+      <img src="https://plus.unsplash.com/premium_photo-1667239482722-16898f7942ef?w=900&q=80&auto=format&fit=crop" alt="Ship technical blueprint" class="nl-img" />
+    </div>
+
+    <!-- Winds grid -->
+    <div class="winds-grid">
+      <!-- Favorable -->
+      <div class="winds-col">
+        <h3 class="winds-hd favorable">Favorable Winds</h3>
+
+        <div class="wind-item">
+          <h4>Risk assets remain resilient, despite a tougher macro backdrop</h4>
+          <p>Equities continue to price in a soft-landing scenario, supported by earnings strength and AI-related capex.</p>
+        </div>
+        <div class="wind-item">
+          <h4>Credit carry remains attractive, but selection matters more</h4>
+          <p>Yields around the 5–8% range still offer income cushion, especially in short-duration IG and selective HY.</p>
+        </div>
+        <div class="wind-item">
+          <h4>AI remains the dominant capital allocation theme</h4>
+          <p>AI capex continues to support technology, semiconductors, cloud, infrastructure and power-related assets.</p>
+        </div>
+        <div class="wind-item">
+          <h4>Labor market weakness is contained for now</h4>
+          <p>Employment is not accelerating, but there is still no clear recession signal from labor data.</p>
+        </div>
+      </div>
+
+      <div class="winds-divider"></div>
+
+      <!-- Headwinds -->
+      <div class="winds-col">
+        <h3 class="winds-hd headwinds">Headwinds</h3>
+
+        <div class="wind-item">
+          <h4>Inflation is no longer improving meaningfully</h4>
+          <p>U.S. core PCE rose 3.2% y/y in March, keeping the Fed far from declaring victory.</p>
+        </div>
+        <div class="wind-item">
+          <h4>Energy has become a macro risk again</h4>
+          <p>The Iran-related oil shock is feeding directly into inflation expectations and central bank caution.</p>
+        </div>
+        <div class="wind-item">
+          <h4>Central banks are on pause, not pivoting</h4>
+          <p>The Fed held rates at 3.50%–3.75%, while explicitly noting elevated inflation partly linked to global energy prices.</p>
+        </div>
+        <div class="wind-item">
+          <h4>Europe faces the weakest macro mix</h4>
+          <p>Eurozone inflation rose to 3.0% in April while Q1 GDP growth slowed to only 0.1%, increasing stagflation concerns.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- On the Horizon -->
+    <div class="horizon-box">
+      <div class="sec-title-row">
+        <div class="sec-line short"></div>
+        <h3 class="sec-title horizon">On the horizon</h3>
+        <div class="sec-line short"></div>
+      </div>
+      <ul class="horizon-list">
+        <li><strong>Core inflation trajectory</strong><br>Any stickiness around 3% limits the case for near-term rate cuts.</li>
+        <li><strong>Energy prices</strong><br>A sustained oil shock would challenge the disinflation narrative.</li>
+        <li><strong>Fed communication</strong><br>The tone matters more than the pause: cuts require clear inflation progress.</li>
+        <li><strong>Credit spreads</strong><br>Early signal of whether macro resilience is starting to crack.</li>
+        <li><strong>AI capex sustainability</strong><br>The market is rewarding AI investment, but valuations depend on execution and monetization.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ MACRO WINDS ═══════════════════ -->
+<section id="section-macro-winds" class="page newsletter-page hidden">
+  <div class="nl-wrap">
+    <div class="nl-header compact">
+      <div class="nl-logo-wrap zink-logo-placeholder dark-logo-ctx"></div>
+      <h1 class="nl-title">Polaris</h1>
+      <p class="nl-subtitle">Navigating Markets, Monthly</p>
+    </div>
+
+    <div class="sec-title-row">
+      <div class="sec-line"></div>
+      <h2 class="sec-title">Macro Winds</h2>
+      <div class="sec-line"></div>
+    </div>
+
+    <div class="nl-img-wrap">
+      <img src="https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=900&q=80&auto=format&fit=crop" alt="Sailboat in open sea" class="nl-img" />
+    </div>
+
+    <div class="macro-body">
+      <ul class="macro-list">
+        <li>
+          <strong>The Fed is on pause, not pivoting</strong><br>
+          Policy remains restrictive, with a high bar for cuts while inflation stays elevated.
+        </li>
+        <li>
+          <strong>Inflation is stabilizing, but not converging to target</strong><br>
+          Core PCE remains around 3.2%, keeping real rates restrictive and duration sensitive to inflation surprises.
+        </li>
+        <li>
+          <strong>Growth is slowing, but still resilient</strong><br>
+          The U.S. economy continues to expand, avoiding a hard-landing scenario for now.
+        </li>
+        <li>
+          <strong>Energy is re-emerging as the key inflation risk</strong><br>
+          The oil shock introduces upside inflation asymmetry and complicates the path for central banks.
+        </li>
+        <li>
+          <strong>Geopolitics is re-emerging as a macro risk</strong><br>
+          Ongoing tensions could disrupt the disinflation path.
+        </li>
+        <li>
+          <strong>Markets remain calm… but increasingly fragile</strong><br>
+          Equities price resilience, while rates, energy, and geopolitics create a less forgiving backdrop.
+        </li>
+      </ul>
+
+      <div class="macro-conclusion">
+        <p>April reinforces a market regime where carry still matters and AI continues to lead. However, macro risk is no longer declining. The key risk is not recession today, but a scenario where persistent inflation limits central banks' ability to respond if growth weakens.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ MARKET SNAPSHOT ═══════════════════ -->
+<section id="section-market-snapshot" class="page newsletter-page hidden">
+  <div class="nl-wrap">
+    <div class="nl-header compact">
+      <div class="nl-logo-wrap zink-logo-placeholder dark-logo-ctx"></div>
+      <h1 class="nl-title">Polaris</h1>
+      <p class="nl-subtitle">Navigating Markets, Monthly</p>
+    </div>
+
+    <div class="sec-title-row">
+      <div class="sec-line"></div>
+      <h2 class="sec-title">April Market Snapshot</h2>
+      <div class="sec-line"></div>
+    </div>
+
+    <!-- USA -->
+    <div class="mkt-block">
+      <div class="mkt-region-hd usa">🇺🇸 &nbsp;USA</div>
+      <div class="table-scroll">
+        <table class="mkt-table">
+          <thead>
+            <tr><th></th><th>PRICE</th><th>MTD</th><th>YTD</th><th>3Y</th><th>5Y</th><th>10Y</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="asset">S&amp;P 500</td>
+              <td>7,209.01</td>
+              <td class="pos">▲ +9.30%</td>
+              <td class="pos">▲ +4.24%</td>
+              <td>71.15%</td><td>70.67%</td><td>245.52%</td>
+            </tr>
+            <tr>
+              <td class="asset">Nasdaq</td>
+              <td>667.74</td>
+              <td class="pos">▲ +13.69%</td>
+              <td class="pos">▲ +8.70%</td>
+              <td>107.01%</td><td>97.56%</td><td>531.61%</td>
+            </tr>
+            <tr>
+              <td class="asset">Dow Jones</td>
+              <td>40,652.14</td>
+              <td class="pos">▲ +5.44%</td>
+              <td class="pos">▲ +1.65%</td>
+              <td>43.30%</td><td>44.24%</td><td>174.91%</td>
+            </tr>
+            <tr class="sub-hd-row">
+              <td></td><td>YIELD</td><td>MTD</td><td>YTD</td><td colspan="3"></td>
+            </tr>
+            <tr>
+              <td class="asset">US 2Y Treasury</td>
+              <td>3.92</td><td>0.13</td><td>0.45</td><td colspan="3"></td>
+            </tr>
+            <tr>
+              <td class="asset">US 10Y Treasury</td>
+              <td>4.42</td><td>0.12</td><td>0.23</td><td colspan="3"></td>
+            </tr>
+            <tr class="sub-hd-row">
+              <td></td><td>LAST</td><td>PREV</td><td colspan="4"></td>
+            </tr>
+            <tr>
+              <td class="asset">US Inflation Rate</td>
+              <td class="pos">▲ 3.30%</td><td>2.40%</td><td colspan="4"></td>
+            </tr>
+            <tr>
+              <td class="asset">US Unemployment Rate</td>
+              <td class="neg">▼ 4.30%</td><td>4.40%</td><td colspan="4"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- EUROPE -->
+    <div class="mkt-block">
+      <div class="mkt-region-hd europe">🇪🇺 &nbsp;EUROPE</div>
+      <div class="table-scroll">
+        <table class="mkt-table">
+          <thead>
+            <tr><th></th><th>PRICE</th><th>MTD</th><th>YTD</th><th>3Y</th><th>5Y</th><th>10Y</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="asset">Stoxx 600</td>
+              <td>71.69</td>
+              <td class="pos">▲ +5.52%</td>
+              <td class="pos">▲ +4.55%</td>
+              <td>37.47%</td><td>38.55%</td><td>77.85%</td>
+            </tr>
+            <tr>
+              <td class="asset">Euro Stoxx 50</td>
+              <td>65.97</td>
+              <td class="pos">▲ +13.69%</td>
+              <td class="pos">▲ +8.70%</td>
+              <td>42.42%</td><td>41.96%</td><td>93.46%</td>
+            </tr>
+            <tr>
+              <td class="asset">DAX 40</td>
+              <td>24,292.38</td>
+              <td class="pos">▲ +9.62%</td>
+              <td class="neg">▼ -2.19%</td>
+              <td>50.45%</td><td>58.26%</td><td>138.62%</td>
+            </tr>
+            <tr>
+              <td class="asset">FTSE 100</td>
+              <td>42.26</td>
+              <td class="pos">▲ +6.53%</td>
+              <td class="neg">▼ -0.56%</td>
+              <td>43.69%</td><td>22.07%</td><td>61.11%</td>
+            </tr>
+            <tr>
+              <td class="asset">IBEX 35</td>
+              <td>10,378.62</td>
+              <td class="pos">▲ +9.36%</td>
+              <td class="pos">▲ +2.84%</td>
+              <td>29.76%</td><td>46.53%</td><td>63.62%</td>
+            </tr>
+            <tr class="sub-hd-row">
+              <td></td><td>YIELD</td><td>MTD</td><td>YTD</td><td colspan="3"></td>
+            </tr>
+            <tr><td class="asset">Germany 2Y</td><td>2.75</td><td>0.126%</td><td>0.95%</td><td colspan="3"></td></tr>
+            <tr><td class="asset">Germany 10Y</td><td>3.12</td><td>0.076%</td><td>0.68%</td><td colspan="3"></td></tr>
+            <tr><td class="asset">UK 2Y</td><td>4.45</td><td>0.044%</td><td>0.62%</td><td colspan="3"></td></tr>
+            <tr><td class="asset">UK 10Y</td><td>4.99</td><td>0.132%</td><td>0.51%</td><td colspan="3"></td></tr>
+            <tr><td class="asset">Spain 2Y</td><td>2.75</td><td>0.001%</td><td>0.87%</td><td colspan="3"></td></tr>
+            <tr><td class="asset">Spain 10Y</td><td>3.507</td><td>0.004%</td><td>0.40%</td><td colspan="3"></td></tr>
+            <tr class="sub-hd-row">
+              <td></td><td>LAST</td><td>PREV</td><td colspan="4"></td>
+            </tr>
+            <tr>
+              <td class="asset">EA Inflation Rate</td>
+              <td class="pos">▲ 2.60%</td><td>1.90%</td><td colspan="4"></td>
+            </tr>
+            <tr>
+              <td class="asset">EA Unemployment Rate</td>
+              <td class="pos">▲ 6.20%</td><td>6.10%</td><td colspan="4"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CHINA & JAPAN -->
+    <div class="mkt-block">
+      <div class="mkt-region-hd asia">🇨🇳 🇯🇵 &nbsp;CHINA &amp; JAPAN</div>
+      <div class="table-scroll">
+        <table class="mkt-table">
+          <thead>
+            <tr><th></th><th>PRICE</th><th>MTD</th><th>YTD</th><th>3Y</th><th>5Y</th><th>10Y</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="asset">CSI 300</td>
+              <td>4,807.31</td>
+              <td class="pos">▲ +8.03%</td>
+              <td class="pos">▲ +3.83%</td>
+              <td>19.32%</td>
+              <td class="neg">▼ -6.17%</td>
+              <td>52.20%</td>
+            </tr>
+            <tr>
+              <td class="asset">Nikkei 225</td>
+              <td>59,284.92</td>
+              <td class="pos">▲ +16.10%</td>
+              <td class="pos">▲ +17.77%</td>
+              <td>103.45%</td><td>105.78%</td><td>256.72%</td>
+            </tr>
+            <tr class="sub-hd-row">
+              <td></td><td>YIELD</td><td>MTD</td><td>YTD</td><td colspan="3"></td>
+            </tr>
+            <tr><td class="asset">Japan 2Y</td><td>1.37</td><td>0.01%</td><td>0.70%</td><td colspan="3"></td></tr>
+            <tr><td class="asset">Japan 10Y</td><td>2.47</td><td>0.11%</td><td>1.15%</td><td colspan="3"></td></tr>
+            <tr>
+              <td class="asset">China 2Y</td>
+              <td>1.28</td>
+              <td class="neg">▼ -0.007%</td>
+              <td class="neg">▼ -0.192%</td>
+              <td colspan="3"></td>
+            </tr>
+            <tr>
+              <td class="asset">China 10Y</td>
+              <td>1.75</td>
+              <td class="neg">▼ -0.061%</td>
+              <td>0.13%</td>
+              <td colspan="3"></td>
+            </tr>
+            <tr class="sub-hd-row">
+              <td></td><td>LAST</td><td>PREV</td><td colspan="4"></td>
+            </tr>
+            <tr><td class="asset">Japan Inflation Rate</td><td class="pos">▲ 1.50%</td><td>1.30%</td><td colspan="4"></td></tr>
+            <tr><td class="asset">Japan Unemployment</td><td class="pos">▲ 2.70%</td><td>2.60%</td><td colspan="4"></td></tr>
+            <tr><td class="asset">China Inflation Rate</td><td class="neg">▼ 1.00%</td><td>1.30%</td><td colspan="4"></td></tr>
+            <tr><td class="asset">China Unemployment</td><td class="pos">▲ 5.40%</td><td>3.30%</td><td colspan="4"></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ALT ASSETS & CURRENCIES -->
+    <div class="mkt-block">
+      <div class="mkt-region-hd alt">ALT. ASSETS &amp; CURRENCIES</div>
+      <div class="table-scroll">
+        <table class="mkt-table">
+          <thead>
+            <tr><th></th><th>PRICE</th><th>MTD</th><th>YTD</th><th>3Y</th><th>5Y</th><th>10Y</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="asset">EURUSD</td><td>1.17325</td>
+              <td class="pos">▲ +1.99%</td>
+              <td class="neg">▼ -0.53%</td>
+              <td>5.02%</td>
+              <td class="neg">▼ -3.83%</td>
+              <td>2.07%</td>
+            </tr>
+            <tr>
+              <td class="asset">USDCHF</td><td>0.7813</td>
+              <td class="neg">▼ -1.16%</td>
+              <td class="neg">▼ -12.14%</td>
+              <td class="neg">▼ -11.58%</td>
+              <td class="neg">▼ -13.02%</td>
+              <td class="neg">▼ -17.58%</td>
+            </tr>
+            <tr>
+              <td class="asset">GBPUSD</td><td>1.3606</td>
+              <td class="pos">▲ +2.40%</td>
+              <td class="pos">▲ +0.17%</td>
+              <td>7.33%</td>
+              <td class="neg">▼ -3.36%</td>
+              <td class="neg">▼ -7.66%</td>
+            </tr>
+            <tr>
+              <td class="asset">USDJPY</td><td>156.749</td>
+              <td class="pos">▲ +0.22%</td>
+              <td class="pos">▲ +1.42%</td>
+              <td>17.51%</td><td>47.10%</td><td>50.66%</td>
+            </tr>
+            <tr>
+              <td class="asset">Bitcoin / USD</td><td>76,276.23</td>
+              <td class="pos">▲ +11.88%</td>
+              <td class="neg">▼ -12.48%</td>
+              <td>161.08%</td><td>42.51%</td><td>16,886.86%</td>
+            </tr>
+            <tr>
+              <td class="asset">Ethereum / USD</td><td>2,255.50</td>
+              <td class="pos">▲ +15.46%</td>
+              <td class="neg">▼ -22.01%</td>
+              <td>20.96%</td>
+              <td class="neg">▼ -16.47%</td>
+              <td>31,663.61%</td>
+            </tr>
+            <tr class="sub-hd-row">
+              <td></td><td>PRICE</td><td>MTD</td><td>YTD</td><td>3Y</td><td>5Y</td><td>10Y</td>
+            </tr>
+            <tr>
+              <td class="asset">Cmdts. Index (DBC)</td><td>31.1</td>
+              <td class="pos">▲ +7.43%</td>
+              <td class="pos">▲ +39.09%</td>
+              <td>32.00%</td><td>73.65%</td><td>113.31%</td>
+            </tr>
+            <tr>
+              <td class="asset">Oil WTI (USO)</td><td>147.09</td>
+              <td class="pos">▲ +15.59%</td>
+              <td class="pos">▲ +112.68%</td>
+              <td>117.91%</td><td>239.94%</td><td>303.86%</td>
+            </tr>
+            <tr>
+              <td class="asset">Oil Brent (BNO)</td><td>58.53</td>
+              <td class="pos">▲ +12.54%</td>
+              <td class="pos">▲ +106.67%</td>
+              <td>117.26%</td><td>245.11%</td><td>303.86%</td>
+            </tr>
+            <tr>
+              <td class="asset">Gold (GLD / USD)</td><td>423.66</td>
+              <td class="neg">▼ -1.54%</td>
+              <td class="pos">▲ +6.90%</td>
+              <td>129.25%</td><td>155.74%</td><td>242.63%</td>
+            </tr>
+            <tr>
+              <td class="asset">Copper (CPER)</td><td>36.53</td>
+              <td class="pos">▲ +6.10%</td>
+              <td class="pos">▲ +4.49%</td>
+              <td>53.17%</td><td>33.18%</td><td>142.56%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p class="table-note">As of April 30, 2026.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════ REGIONAL ROUTES ═══════════════════ -->
+<section id="section-regional-routes" class="page newsletter-page hidden">
+  <div class="nl-wrap">
+    <div class="nl-header compact">
+      <div class="nl-logo-wrap zink-logo-placeholder dark-logo-ctx"></div>
+      <h1 class="nl-title">Polaris</h1>
+      <p class="nl-subtitle">Navigating Markets, Monthly</p>
+    </div>
+
+    <div class="sec-title-row">
+      <div class="sec-line"></div>
+      <h2 class="sec-title">Regional Routes</h2>
+      <div class="sec-line"></div>
+    </div>
+
+    <!-- EUROPE -->
+    <div class="nl-img-wrap">
+      <img src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=900&q=80&auto=format&fit=crop" alt="Monaco coastline" class="nl-img" />
+    </div>
+
+    <div class="region-block">
+      <h3 class="region-hd europe-hd">Europe</h3>
+      <ul class="region-list">
+        <li><strong>Growth remains fragile</strong>, with Germany expected to grow below ~1% in 2026, reflecting weak industrial momentum and soft external demand.</li>
+        <li><strong>Inflation risks are re-emerging</strong>, driven by higher energy prices amid geopolitical tensions, introducing upside pressure just as disinflation was losing momentum.</li>
+        <li><strong>Stagflation risks are back on the radar</strong>, as rising energy costs coincide with weak growth and limited demand recovery.</li>
+        <li><strong>The ECB kept rates unchanged</strong>, but shifted to a more cautious tone, signaling reduced confidence in the disinflation path.</li>
+        <li><strong>Equities face increasing valuation pressure</strong>, as elevated rates and weak earnings momentum begin to challenge current multiples.</li>
+      </ul>
+      <div class="region-dx">
+        <h4>Diagnosis:</h4>
+        <p>Europe remains the most vulnerable developed region, where weak growth and energy-driven inflation create a stagflationary mix. With limited policy flexibility and a more cautious ECB, the region is increasingly exposed to rate repricing and downside risks in equities.</p>
+      </div>
+    </div>
+
+    <!-- ASIA -->
+    <div class="nl-img-wrap">
+      <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=900&q=80&auto=format&fit=crop" alt="Tokyo Japan" class="nl-img" />
+    </div>
+
+    <div class="region-block">
+      <h3 class="region-hd asia-hd">Asia</h3>
+      <ul class="region-list">
+        <li><strong>Japan remains in focus</strong>, with the BoJ proceeding cautiously as policy normalization advances, gradually influencing global yields and FX dynamics as domestic rates move higher.</li>
+        <li><strong>China growth is stabilizing around ~4–4.5%</strong>, but remains uneven and policy-dependent, with continued weakness in the property sector and soft domestic demand limiting a stronger recovery.</li>
+        <li><strong>Technology and AI-related sectors continue to support equities</strong>, particularly in semiconductors and hardware, driven by sustained global capex in AI infrastructure.</li>
+        <li><strong>Oil-importing economies remain exposed</strong>, with higher energy prices creating upside inflation risks and adding pressure to external balances.</li>
+      </ul>
+      <div class="region-dx">
+        <h4>Diagnosis:</h4>
+        <p>Asia remains a region of divergence rather than a unified macro story. Japan is introducing gradual tightening into global markets, while China continues to rely on policy support to stabilize growth. In this environment, equity performance is likely to remain concentrated in AI-linked sectors, with broader markets exposed to energy shocks and uneven domestic demand.</p>
+      </div>
+    </div>
+
+    <!-- EMERGING MARKETS -->
+    <div class="nl-img-wrap">
+      <img src="https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=900&q=80&auto=format&fit=crop" alt="Rio de Janeiro" class="nl-img" />
+    </div>
+
+    <div class="region-block">
+      <h3 class="region-hd em-hd">Emerging Markets (EM)</h3>
+      <ul class="region-list">
+        <li><strong>Growth expectations are being revised lower</strong>, particularly across energy-importing economies, where higher oil and food prices are eroding real incomes and external balances.</li>
+        <li><strong>A clear divergence is emerging within EM</strong>, with commodity exporters benefiting from stronger terms of trade, while importers face renewed inflation pressure and weaker currencies.</li>
+        <li><strong>Hard-currency debt remains attractive (~7–9% yields)</strong>, but is increasingly sensitive to U.S. rates staying higher for longer and to dollar strength, limiting the scope for spread compression.</li>
+        <li><strong>Capital flows remain fragile</strong>, especially in countries reliant on external financing, where tighter global liquidity conditions are beginning to reprice risk.</li>
+      </ul>
+      <div class="region-dx">
+        <h4>Diagnosis:</h4>
+        <p>Emerging Markets are shifting from a synchronized recovery to a more fragmented landscape. Commodity exporters remain relatively resilient, while oil-importing economies face a more challenging mix of inflation pressure, dollar strength, and tighter financial conditions. In this environment, EM performance is likely to be increasingly selective, with greater dispersion across countries and asset classes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ ABOUT ═══════════════════ -->
+<section id="section-about" class="page hidden">
+  <div class="about-wrap">
+    <div class="about-logo-wrap zink-logo-placeholder dark-logo-ctx"></div>
+    <h1 class="about-title">Sobre Polaris</h1>
+    <div class="about-body">
+      <p><strong>Polaris</strong> es la newsletter mensual de análisis de mercados de <strong>Zink Solutions</strong>, diseñada para proporcionar un marco claro y orientación estratégica en un entorno financiero global cada vez más complejo.</p>
+      <p>Como la Estrella Polar guiaba a los marineros determinando la latitud, <em>Polaris</em> ayuda a los inversores a navegar los mercados financieros con perspectiva y claridad, mes a mes.</p>
+      <blockquote class="about-quote">
+        "Ningún viento es favorable para el marinero que no sabe a qué puerto se dirige."<br>
+        <cite>— Séneca</cite>
+      </blockquote>
+      <div class="about-sections">
+        <div class="about-sec-card" onclick="showSection('nav-brief')">
+          <div class="asc-icon">⛵</div>
+          <h3>Navigation Brief</h3>
+          <p>Vientos favorables, obstáculos y señales en el horizonte del mercado.</p>
+        </div>
+        <div class="about-sec-card" onclick="showSection('macro-winds')">
+          <div class="asc-icon">🌊</div>
+          <h3>Macro Winds</h3>
+          <p>Análisis profundo de las fuerzas macroeconómicas que mueven los mercados.</p>
+        </div>
+        <div class="about-sec-card" onclick="showSection('market-snapshot')">
+          <div class="asc-icon">📊</div>
+          <h3>Market Snapshot</h3>
+          <p>Datos de mercado globales: renta variable, renta fija, divisas y alternativos.</p>
+        </div>
+        <div class="about-sec-card" onclick="showSection('regional-routes')">
+          <div class="asc-icon">🗺️</div>
+          <h3>Regional Routes</h3>
+          <p>Diagnóstico regional: Europa, Asia y Mercados Emergentes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo-wrap zink-logo-placeholder light-logo-ctx"></div>
+    <p class="footer-polaris">POLARIS · Navigating Markets, Monthly</p>
+    <p class="footer-disc">Este contenido es únicamente informativo y no constituye asesoramiento de inversión ni financiero.</p>
+    <p class="footer-copy">© 2026 Zink Solutions. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
